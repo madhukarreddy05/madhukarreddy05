@@ -1,146 +1,247 @@
-<!--
-Project: World-class GitHub Pages Portfolio (single-file + assets)
-Updated: Added personal email, Instagram, and automatic project fetching from GitHub.
--->
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Madhukar Reddy — Portfolio</title>
-  <meta name="description" content="World-class portfolio hosted on GitHub Pages for Madhukar Reddy." />
-
+  <meta name="description" content="World-class GitHub Pages portfolio for Madhukar Reddy — Electronics & VLSI Engineer, Rust & Linux Enthusiast." />
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
 
   <style>
     :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7c5cff; --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.02);
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7c5cff; --glass: rgba(255,255,255,0.04);
+      --glass-hover: rgba(255,255,255,0.07);
+      --transition: all 0.3s ease;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(180deg,var(--bg),#05060a);}
-    .wrap{max-width:1100px;margin:40px auto;padding:28px;display:grid;grid-template-columns:340px 1fr;gap:28px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;padding:22px;box-shadow: 0 6px 30px rgba(0,0,0,0.6);backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03);}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Inter,system-ui,sans-serif;
+      color:#e6eef8;
+      background:linear-gradient(180deg,var(--bg),#05060a);
+      min-height:100vh;
+    }
+
+    /* Floating Header */
+    header{
+      position:fixed;top:0;left:0;width:100%;
+      backdrop-filter:blur(10px);
+      background:rgba(15,23,36,0.7);
+      padding:12px 24px;
+      display:flex;justify-content:space-between;align-items:center;
+      z-index:1000;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    header h1{font-size:18px;font-weight:700;letter-spacing:0.5px}
+    header nav a{
+      color:var(--muted);text-decoration:none;margin-left:18px;font-size:14px;
+      transition:var(--transition)
+    }
+    header nav a:hover{color:#fff}
+
+    .wrap{max-width:1100px;margin:100px auto 40px;padding:28px;display:grid;grid-template-columns:340px 1fr;gap:28px}
+
+    .card{
+      background:var(--glass);
+      border-radius:18px;
+      padding:22px;
+      box-shadow:0 6px 30px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.04);
+      transition:var(--transition);
+    }
+    .card:hover{border-color:rgba(255,255,255,0.08)}
+
     .profile{display:flex;flex-direction:column;align-items:center;text-align:center}
-    #profile{width:160px;height:160px;border-radius:50%;object-fit:cover;border:6px solid rgba(255,255,255,0.04);box-shadow:0 6px 30px rgba(124,92,255,0.12);}
-    h1{font-size:20px;margin:12px 0 6px}
-    p.job{margin:0;color:var(--muted);font-weight:500}
-    .socials{display:flex;gap:10px;margin-top:12px}
-    .socials a{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:var(--glass);text-decoration:none;color:#fff;font-size:18px}
-    .stats{display:flex;gap:12px;margin-top:18px}
-    .stat{flex:1;background:var(--glass-2);padding:10px;border-radius:10px}
-    .stat strong{display:block;font-size:18px}
+    #profile{width:160px;height:160px;border-radius:50%;object-fit:cover;border:6px solid rgba(255,255,255,0.05);box-shadow:0 6px 30px rgba(124,92,255,0.12);}
+
+    h2,h3{margin-bottom:6px}
+    p.job{color:var(--muted);font-weight:500;margin-top:4px}
+
+    /* Social Icons */
+    .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:14px}
+    .socials a{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:42px;height:42px;border-radius:10px;
+      background:var(--glass);color:#fff;font-size:20px;text-decoration:none;
+      transition:var(--transition);position:relative;
+    }
+    .socials a:hover{background:var(--glass-hover);transform:translateY(-2px)}
+    .socials a::after{
+      content:attr(title);position:absolute;bottom:-24px;
+      background:#000;padding:4px 8px;font-size:12px;border-radius:6px;
+      opacity:0;transform:translateY(5px);pointer-events:none;
+      transition:var(--transition);
+      white-space:nowrap;
+    }
+    .socials a:hover::after{opacity:1;transform:translateY(0)}
+
     .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-    .tag{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted)}
-    .main{display:flex;flex-direction:column;gap:18px}
-    .hero{padding:22px;border-radius:14px;background:linear-gradient(90deg, rgba(124,92,255,0.08), rgba(124,92,255,0.02));border:1px solid rgba(124,92,255,0.06);}
-    .hero h2{margin:0 0 8px}
-    .hero p{margin:0;color:var(--muted)}
-    .projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-    .project{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .tag{
+      background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:6px 12px;border-radius:999px;font-size:13px;color:var(--muted);
+      transition:var(--transition)
+    }
+    .tag:hover{background:var(--glass-hover);color:#fff}
+
+    .hero{
+      padding:24px;border-radius:14px;
+      background:linear-gradient(90deg, rgba(124,92,255,0.15), rgba(124,92,255,0.04));
+      border:1px solid rgba(124,92,255,0.06);
+      text-align:left;
+      position:relative;overflow:hidden;
+    }
+    .hero::before{
+      content:'';position:absolute;top:-50%;left:-20%;
+      width:200%;height:200%;
+      background:radial-gradient(circle at center,rgba(124,92,255,0.3),transparent 60%);
+      animation:glow 8s linear infinite;
+    }
+    @keyframes glow{
+      0%{transform:translate(0,0) rotate(0deg)}
+      50%{transform:translate(20%,20%) rotate(180deg)}
+      100%{transform:translate(0,0) rotate(360deg)}
+    }
+
+    .projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .project{
+      background:var(--card);padding:16px;border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+      display:flex;flex-direction:column;justify-content:space-between;
+      transition:var(--transition)
+    }
+    .project:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.08)}
     .project h3{margin:0 0 6px;font-size:16px}
-    .project p{margin:0;color:var(--muted);font-size:14px}
-    .readme-card{padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border-radius:14px;border:1px solid rgba(255,255,255,0.03);}
-    #readme{max-height:520px;overflow:auto;padding-right:8px}
-    footer{margin-top:8px;color:var(--muted);font-size:13px;text-align:center}
-    .bg-blob{position:fixed;right:-10vw;top:-20vh;width:60vw;height:60vh;pointer-events:none;filter:blur(60px);opacity:0.18;background:radial-gradient(circle at 30% 30%, rgba(124,92,255,0.8), rgba(0,0,0,0));transform:rotate(12deg);border-radius:40%}
-    @media (max-width:900px){.wrap{grid-template-columns:1fr;padding:18px}.profile{flex-direction:row;gap:16px;align-items:center}.profile h1{font-size:18px}.stats{flex-direction:row}}
-    @media (max-width:560px){#profile{width:110px;height:110px}}
-    #readme h1,#readme h2,#readme h3{color:#eaf0ff}
-    #readme p, #readme li{color:var(--muted)}
-    a.cta{display:inline-block;background:linear-gradient(90deg,var(--accent),#5fd3ff);color:#05102b;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+    .project p{color:var(--muted);font-size:14px;flex:1}
+    .project .meta{font-size:12px;color:var(--muted);margin-top:6px;display:flex;gap:10px;flex-wrap:wrap}
+    a.cta{
+      display:inline-block;background:linear-gradient(90deg,var(--accent),#5fd3ff);
+      color:#05102b;padding:8px 12px;border-radius:8px;text-decoration:none;
+      font-weight:600;margin-top:10px;text-align:center
+    }
+    a.cta:hover{opacity:0.9}
+
+    #readme h1,#readme h2,#readme h3{color:#eaf0ff;margin-top:14px}
+    #readme p,#readme li{color:var(--muted);line-height:1.6}
+    #readme a{color:#5fd3ff;text-decoration:none}
+    #readme a:hover{text-decoration:underline}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    @media (max-width:900px){
+      .wrap{grid-template-columns:1fr;padding:18px}
+      .profile{flex-direction:row;gap:16px;align-items:center;justify-content:flex-start;text-align:left}
+      #profile{width:110px;height:110px}
+    }
   </style>
 </head>
 <body>
-  <div class="bg-blob" aria-hidden></div>
+  <header>
+    <h1>Madhukar Reddy</h1>
+    <nav>
+      <a href="#readme">About</a>
+      <a href="#projects">Projects</a>
+      <a href="mailto:madhukar@madhukarreddy.tech">Contact</a>
+    </nav>
+  </header>
+
   <div class="wrap">
     <aside class="card">
       <div class="profile">
-        <img id="profile" src="assets/profile.jpg" alt="Profile image" onerror="this.src='https://github.com/madhukarreddy05.png'" />
-        <div style="margin-left:12px; text-align:left">
-          <h1>Madhukar Reddy</h1>
+        <img id="profile" src="assets/profile.jpg" alt="Profile" onerror="this.src='https://github.com/madhukarreddy05.png'">
+        <div>
+          <h2>Madhukar Reddy</h2>
           <p class="job">Electronics & VLSI Engineer · Rust & Linux Enthusiast</p>
-          <div class="socials" style="margin-top:10px">
+          <div class="socials">
             <a href="https://github.com/madhukarreddy05" title="GitHub"><i class='bx bxl-github'></i></a>
             <a href="https://instagram.com/madhukar_reddy03" title="Instagram"><i class='bx bxl-instagram'></i></a>
             <a href="mailto:madhukar@madhukarreddy.tech" title="Email"><i class='bx bx-envelope'></i></a>
+            <a href="https://www.linkedin.com/in/madhukarreddy" title="LinkedIn"><i class='bx bxl-linkedin-square'></i></a>
+            <a href="https://x.com/madhukar" title="X / Twitter"><i class='bx bxl-twitter'></i></a>
+            <a href="https://youtube.com/@madhukar" title="YouTube"><i class='bx bxl-youtube'></i></a>
+            <a href="https://dev.to/madhukar" title="Dev.to"><i class='bx bxl-dev-to'></i></a>
+          </div>
+          <div class="tags">
+            <span class="tag">Rust</span><span class="tag">VLSI</span>
+            <span class="tag">Linux</span><span class="tag">PCB</span>
+            <span class="tag">C++</span><span class="tag">Open Source</span>
           </div>
         </div>
-      </div>
-      <div class="stats" style="margin-top:16px">
-        <div class="stat"><strong>120+</strong><span style="color:var(--muted)">Commits</span></div>
-        <div class="stat"><strong>28</strong><span style="color:var(--muted)">Repositories</span></div>
-      </div>
-      <div class="tags" style="margin-top:14px">
-        <span class="tag">Rust</span><span class="tag">VLSI</span><span class="tag">Linux</span><span class="tag">PCB</span>
-      </div>
-      <div style="margin-top:18px;font-size:13px;color:var(--muted)">
-        <strong>Contact</strong>
-        <p style="margin:6px 0 0">madhukar@madhukarreddy.tech</p>
       </div>
     </aside>
 
     <main class="main">
       <section class="hero card">
-        <h2>Hello — I'm Madhukar</h2>
-        <p>Welcome to my portfolio. This GitHub Pages site renders my repository README and lists my public GitHub projects below.</p>
+        <h2>👋 Hello — I'm Madhukar</h2>
+        <p>Welcome to my portfolio. Here you’ll find my GitHub README, skills, and a showcase of my open-source projects. I love working on Rust, Linux systems, and VLSI engineering.</p>
       </section>
 
-      <section class="card readme-card">
-        <h3 style="margin-top:0">README (from my repository)</h3>
+      <section class="card readme-card" id="readme-section">
+        <h3>📄 My GitHub README</h3>
         <div id="readme">Loading README…</div>
       </section>
 
-      <section class="card">
-        <h3>My GitHub Projects</h3>
-        <div class="projects" id="projects"></div>
+      <section class="card" id="projects-section">
+        <h3 id="projects">🚀 My GitHub Projects</h3>
+        <div class="projects" id="projects-container"></div>
       </section>
 
       <footer>
-        Built with ❤️ · Hosted on GitHub Pages · Last update: <span id="updated">—</span>
+        © <span id="year"></span> Madhukar Reddy · Built with ❤️ · Last updated: <span id="updated">—</span>
       </footer>
     </main>
   </div>
 
   <script>
-    const README_FETCH_URL = 'https://raw.githubusercontent.com/madhukarreddy05/madhukarreddy05/main/README.md';
     const GITHUB_USERNAME = 'madhukarreddy05';
+    const README_URL = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_USERNAME}/main/README.md`;
 
-    async function fetchReadme(){
+    async function loadReadme(){
       try{
-        const r = await fetch(README_FETCH_URL);
-        if(!r.ok) throw new Error('Failed to fetch README');
-        const md = await r.text();
-        document.getElementById('readme').innerHTML = marked.parse(md, {gfm:true});
+        const res = await fetch(README_URL);
+        if(!res.ok) throw new Error('Failed to fetch README');
+        const md = await res.text();
+        document.getElementById('readme').innerHTML = marked.parse(md);
         document.getElementById('updated').textContent = new Date().toLocaleDateString();
       }catch(e){
-        document.getElementById('readme').innerHTML = `<p style='color:var(--muted)'>${e.message}</p>`;
+        document.getElementById('readme').innerHTML = `<p style="color:var(--muted)">${e.message}</p>`;
       }
     }
 
-    async function fetchProjects(){
+    async function loadProjects(){
       try{
         const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated`);
         if(!res.ok) throw new Error('Failed to load projects');
-        const repos = await res.json();
-        const container = document.getElementById('projects');
+        const repos = (await res.json())
+          .filter(r=>!r.fork)
+          .slice(0,12);
+
+        const container = document.getElementById('projects-container');
+        container.innerHTML = '';
         repos.forEach(repo=>{
-          const card = document.createElement('div');
-          card.className = 'project';
-          card.innerHTML = `<h3>${repo.name}</h3><p>${repo.description||'No description provided.'}</p><div style='margin-top:10px'><a class='cta' href='${repo.html_url}' target='_blank'>View</a></div>`;
-          container.appendChild(card);
+          const el = document.createElement('div');
+          el.className = 'project';
+          el.innerHTML = `
+            <h3>${repo.name}</h3>
+            <p>${repo.description || 'No description provided.'}</p>
+            <div class="meta">
+              ${repo.language ? `<span>📝 ${repo.language}</span>`:''}
+              <span>⭐ ${repo.stargazers_count}</span>
+              <span>🍴 ${repo.forks_count}</span>
+            </div>
+            <a class="cta" href="${repo.html_url}" target="_blank">View Project</a>
+          `;
+          container.appendChild(el);
         });
       }catch(e){
-        document.getElementById('projects').innerHTML = `<p style='color:var(--muted)'>${e.message}</p>`;
+        document.getElementById('projects-container').innerHTML = `<p style="color:var(--muted)">${e.message}</p>`;
       }
     }
 
-    fetchReadme();
-    fetchProjects();
+    document.getElementById('year').textContent = new Date().getFullYear();
+    loadReadme();
+    loadProjects();
   </script>
 </body>
 </html>
-
