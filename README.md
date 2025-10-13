@@ -1,16 +1,30 @@
-## Hi there 👋
+# 👋 Hi, I'm Madhukar Reddy
 
-<!--
-**madhukarreddy05/madhukarreddy05** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+🚀 Passionate about building innovative solutions, contributing to open-source, and learning new technologies every day.
 
-Here are some ideas to get you started:
+🔧 Currently exploring **Full-Stack Development, Rust, and Embedded Systems**.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+📫 Reach me at: [madhukar@madhukarreddy.tech](mailto:madhukar@madhukarreddy.tech)  
+📸 Instagram: [@madhukar_reddy03](https://www.instagram.com/madhukar_reddy03/)
+
+---
+
+## 🌟 GitHub Stats
+
+![Madhukar's GitHub Stats](https://github-readme-stats.vercel.app/api?username=madhukarreddy05&show_icons=true&count_private=true&theme=default)
+
+---
+
+## 📊 Top Languages
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=madhukarreddy05&layout=compact&theme=default)
+
+---
+
+## 🛠️ Skills & Tools
+
+![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
