@@ -4,7 +4,7 @@
 
 🔧 Currently exploring **Full-Stack Development, Rust, and Embedded Systems**.
 
-📫 Reach me at: [madhukar@madhukarreddy.work](mailto:madhukar@madhukarreddy.work)  
+📫 Reach me at: [madhukar@reddyfamily.in](mailto:madhukar@reddyfamily.in)  
 📸 Instagram: [@madhukar_reddy03](https://www.instagram.com/madhukar_reddy03/)
 
 ---
